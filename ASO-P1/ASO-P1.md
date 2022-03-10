@@ -2,7 +2,7 @@
 
 ## 0. Instalar los SO
 
-### Solaris:
+### Solaris
 - Instalación
     - [x] Networked
     - [x] DHCP
@@ -20,7 +20,7 @@
 | /var             |  2048 MB |        261 |
 | /export/home     |  1024 MB |        131 |
 
-### FreeBSD:
+### FreeBSD
 - Instalación
 
 ```
@@ -70,19 +70,19 @@ ada0            64 GB   MBR
 [ ] 10 disable_ddtraceDisallow DTrace destructive-mode
 ```
 
-### OpenBSD:
+### OpenBSD
 
-### Devuan:
+### Devuan
 
 ## 1. Comprobar que cambiando la partición activa cambia el SO que arranca
 
-### Solaris:
+### Solaris
 
-### FreeBSD:
+### FreeBSD
 
-### OpenBSD:
+### OpenBSD
 
-### Devuan:
+### Devuan
 
 ## 2. Comprobar que si un cargador está en el MasterBoot arranca ese cargador independientemente de la partición activa. (Comprobarlo instalando el Grub de Solaris y/o el grub de linux en el MasterBoot). Después volverlo a poner al inicio de la partición.
 
