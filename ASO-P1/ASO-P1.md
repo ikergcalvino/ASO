@@ -133,4 +133,9 @@ Instalación del GRUB en `/dev/sda4`
 
 ## 4. Si no se ha creado usuario durante la instalación del SO, añadir un usuario a Solaris 10 usando *Solaris Managment Console* (`smc`)
 
+``` shell
+useradd -c 'usuario' -m -d /export/home/usuario -s /bin/bash usuario
+passwd usuario
+```
+
 ## 5. Añadir swap (2GB) a Devuan linux en un fichero
