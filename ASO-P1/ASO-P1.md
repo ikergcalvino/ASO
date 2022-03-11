@@ -9,8 +9,9 @@
     - [ ] IPv6
     - [ ] Kerberos
     - Name Service : none
-- VTOC
+- Particionado
     - Partición de 18454 MB (18 GB + 22 MB de redondeo)
+    - Modify VTOC
 
 | Disk/File System | Size(MB) | Size(Cyls) |
 | :--------------- | -------: | ---------: |
@@ -71,8 +72,28 @@ ada0            64 GB   MBR
 ```
 
 ### OpenBSD
+- Instalación
+    - Instalación por defecto + X Window System
+- Particionado
+    - Editamos las particiones (`fdisk`)
+    - Editamos la partición 3 con `e 2`
+        - ID: A6 (OpenBSD)
+        - Start: 4443 [inicio del cilindro] (final de la anterior partición + 1)
+        - End: 6545 [final del cilindro] (nº de cilindros aprox.)
+    - Custom layout
+
+|  #  | size | mount      |
+| :-- | ---: | :--------- |
+|  a  | 9 GB |  /         |
+|  b  | 2 GB | *swap*     |
+|  c  |  -   | *(unused)* |
+|  d  | 2 GB |  /var      |
+|  e  | 1 GB |  /home     |
 
 ### Devuan
+- Instalación
+
+- Particionado
 
 ## 1. Comprobar que cambiando la partición activa cambia el SO que arranca
 
