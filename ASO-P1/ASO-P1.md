@@ -92,8 +92,30 @@ ada0            64 GB   MBR
 
 ### Devuan
 - Instalación
-
+    - Instalación por defecto
 - Particionado
+    - Partición manual
+        - Partición 4: primaria y entera (≈14.9 GB)
+
+```
+[*] Devuan desktop enviroment
+[*] ... Xfce
+[ ] ... MATE
+[ ] ... Cinnamon
+[ ] ... KDE
+[ ] ... LXQt
+[ ] ... GNOME Flashback
+[ ] web server
+[*] Console productivity
+[*] SSH server
+[*] standard system utilities
+```
+
+Init system to install: sysvinit
+
+**[:exclamation:] ¡ATENCIÓN! [:exclamation:]**
+
+Instalación del GRUB en `/dev/sda4`
 
 ## 1. Comprobar que cambiando la partición activa cambia el SO que arranca
 
