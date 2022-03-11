@@ -121,11 +121,38 @@ Instalación del GRUB en `/dev/sda4`
 
 ### Solaris
 
+``` shell
+format  # 0 (Specify disk)
+fdisk   # 2 (Specify the active partition) + n (Select partition)
+    # n = nº de partición que queremos que sea activa
+reboot
+```
+
 ### FreeBSD
+
+``` shell
+gpart show ada0
+gpart set -a active -i n ada0
+    # n = nº de partición que queremos que sea activa
+reboot
+```
 
 ### OpenBSD
 
+``` shell
+fdisk -e sd0
+flag n  # n = nº de partición que queremos que sea activa
+reboot
+```
+
 ### Devuan
+
+``` shell
+fdisk -l
+fdisk /dev/sda  # usamos 'a' para activar y desactivar la bootable flag (*) + n
+    # n = nº de partición que queremos que sea activa
+reboot
+```
 
 ## 2. Comprobar que si un cargador está en el MasterBoot arranca ese cargador independientemente de la partición activa. (Comprobarlo instalando el Grub de Solaris y/o el grub de linux en el MasterBoot). Después volverlo a poner al inicio de la partición.
 
