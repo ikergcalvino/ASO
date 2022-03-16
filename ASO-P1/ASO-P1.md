@@ -154,7 +154,34 @@ fdisk /dev/sda  # usamos 'a' para activar y desactivar la bootable flag (*) + n
 reboot
 ```
 
-## 2. Comprobar que si un cargador está en el MasterBoot arranca ese cargador independientemente de la partición activa. (Comprobarlo instalando el Grub de Solaris y/o el grub de linux en el MasterBoot). Después volverlo a poner al inicio de la partición.
+## 2. Comprobar que si un cargador está en el MasterBoot arranca ese cargador independientemente de la partición activa
+
+### Comprobarlo instalando el GRUB de Solaris y/o el GRUB de Linux en el MasterBoot. Después volverlo a poner al inicio de la partición
+
+- Ambos GRUBs ya han sido instalados en el apartado 0
+
+### Solaris
+
+- Ejecutamos `bootadm list-menu` para mostrar la ubicación del menú de GRUB activo y las entradas del menú de GRUB actuales
+- Modificamos el archivo `/boot/grub/menu.lst`
+
+```
+title FreeBSD 13
+    rootnoverify (hd0,1)
+    chainloader  (hd0,1) +1
+
+title OpenBSD 7.0
+    rootnoverify (hd0,2)
+    chainloader  (hd0,2) +1
+
+title Devuan Linux 4.0
+    root (hd0,3)
+    chainloader +1
+```
+
+### Devuan
+
+
 
 ## 3. Instalar *boot0* (desde FreeBSD) para poder seleccionar que SO arranca al iniciar la máquina
 
@@ -165,4 +192,4 @@ useradd -c 'usuario' -m -d /export/home/usuario -s /bin/bash usuario
 passwd usuario
 ```
 
-## 5. Añadir swap (2GB) a Devuan linux en un fichero
+## 5. Añadir swap (2GB) a Devuan Linux en un fichero
