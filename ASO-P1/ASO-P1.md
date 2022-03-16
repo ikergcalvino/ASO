@@ -2,7 +2,7 @@
 
 ## 0. Instalar los SO
 
-### Solaris
+### Solaris 10
 - Instalación
     - [x] Networked
     - [x] DHCP
@@ -21,7 +21,7 @@
 | /var             |  2048 MB |        261 |
 | /export/home     |  1024 MB |        131 |
 
-### FreeBSD
+### FreeBSD 13
 - Instalación
 
 ```
@@ -71,7 +71,7 @@ ada0            64 GB   MBR
 [ ] 10 disable_ddtraceDisallow DTrace destructive-mode
 ```
 
-### OpenBSD
+### OpenBSD 7.0
 - Instalación
     - Instalación por defecto + X Window System
 - Particionado
@@ -90,7 +90,7 @@ ada0            64 GB   MBR
 |  d  | 2 GB |  /var      |
 |  e  | 1 GB |  /home     |
 
-### Devuan
+### Devuan Linux 4.0
 - Instalación
     - Instalación por defecto
 - Particionado
