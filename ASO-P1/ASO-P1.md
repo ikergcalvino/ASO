@@ -168,14 +168,14 @@ reboot
 ```
 title FreeBSD 13
     rootnoverify (hd0,1)
-    chainloader  (hd0,1) +1
+    chainloader +1
 
 title OpenBSD 7.0
     rootnoverify (hd0,2)
-    chainloader  (hd0,2) +1
+    chainloader +1
 
 title Devuan Linux 4.0
-    root (hd0,3)
+    rootnoverify (hd0,3)
     chainloader +1
 ```
 
