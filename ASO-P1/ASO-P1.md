@@ -181,7 +181,26 @@ title Devuan Linux 4.0
 
 ### Devuan
 
+- Modificamos el archivo `/etc/grub.d/40_custom`
 
+```
+menuentry "Solaris 10" {
+    set root=(hd0,1)
+    chainloader +1
+}
+
+menuentry "FreeBSD 13" {
+    set root=(hd0,2)
+    chainloader +1
+}
+
+menuentry "OpenBSD 7.0" {
+    set root=(hd0,3)
+    chainloader +1
+}
+```
+
+- Ejecutamos `update-grub` para actualizar las entradas del GRUB
 
 ## 3. Instalar *boot0* (desde FreeBSD) para poder seleccionar que SO arranca al iniciar la máquina
 
@@ -193,3 +212,22 @@ passwd usuario
 ```
 
 ## 5. Añadir swap (2GB) a Devuan Linux en un fichero
+
+- Ejecutamos `swapon –s` o `free –m` para comprobar la información de la memoria swap
+- Creamos un archivo swap
+    - Método tradicional: `dd if=/dev/zero of=/swapfile bs=1G count=2`
+    - Método rápido: `fallocate –l 2G /swapfile`
+    - Podemos comprobar que se ha creado bien con: `ls -lh /swapfile`
+- Habilitamos el archivo swap
+
+``` shell
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+```
+
+- Lo hacemos permanente modificando el archivo `/etc/fstab`
+
+```
+/swapfile    none    swap    sw    0    0
+```
