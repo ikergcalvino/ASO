@@ -66,7 +66,39 @@ USED DEVICES
 
 ## Instalar el cargador syslinux-efi y configurarlo para que posibilite elegir que operativo arranca al iniciar la máquina
 
+- Descargamos el siguiente archivo: [x86-64 binary tarball of SYSLINUX 6.03+dfsg-14](https://www.rodsbooks.com/efi-bootloaders/syslinux-6.0.3+dfsg-14.tgz)
+- Creamos el directorio `kernel/` tanto para Ubuntu como para Fedora en sus respectivas carpetas del EFI (sda1) (partición montada en `/boot/efi/`)
+    - `/boot/efi/EFI/ubuntu/kernel/`
+    - `/boot/efi/EFI/fedora/kernel/`
+- Copiamos los kernel y los initrd de los 2 sistemas operativos en sus respectivas carpetas:
+    - Ubuntu Server
+        - Kernel: `vmlinuz-5.4.0-107-generic`
+        - Initrd: `initrd.img-5.4.0-107-generic`
+    - Fedora MATE
+        - Kernel: `vmlinuz-5.14.10-300.fc35.x86_64`
+        - Initrd: `initramfs-5.14.10-300.fc35.x86_64.img`
+- Editamos el archivo `syslinux.cfg` que acabamos de descargar
 
+```
+DEFAULT ubuntu
+TIMEOUT 50
+UI menu.c32
+
+LABEL ubuntu
+    MENU LABEL Ubuntu Server
+    LINUX /EFI/ubuntu/kernel/vmlinuz-5.4.0-107-generic
+    APPEND root=/dev/sda2 ro quiet splash
+    INITRD /EFI/ubuntu/kernel/initrd.img-5.4.0-107-generic
+
+LABEL fedora
+    MENU LABEL Fedora MATE
+    LINUX /EFI/fedora/kernel/vmlinuz-5.14.10-300.fc35.x86_64
+    APPEND root=/dev/sda5 ro quiet splash
+    INITRD /EFI/fedora/kernel/initramfs-5.14.10-300.fc35.x86_64.img
+```
+
+- Copiamos el directorio `syslinux/` en `/boot/efi/EFI/`
+- Ejecutamos `efibootmgr -c -l '/EFI/syslinux/syslinux.efi' -L SYSLINUX -p 1` para utilizar syslinux-efi como cargador en el arranque
 
 ## Instalar el cargador rEFInd y configurarlo para que permita elegir que operativo arranca al iniciar la máquina, o hacer chainload a otro cargador (y mediante un submenú elegir qué cargador)
 
