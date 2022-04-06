@@ -72,11 +72,15 @@ USED DEVICES
     - `/boot/efi/EFI/fedora/kernel/`
 - Copiamos los kernel y los initrd de los 2 sistemas operativos en sus respectivas carpetas:
     - Ubuntu Server
-        - Kernel: `vmlinuz-5.4.0-107-generic`
-        - Initrd: `initrd.img-5.4.0-107-generic`
+        - Kernel: `vmlinuz`
+        - Kernel (Generic): `vmlinuz-5.4.0-107-generic` > `vmlinuz-generic`
+        - Initrd: `initrd.img`
+        - Initrd (Generic): `initrd.img-5.4.0-107-generic` > `initrd.img-generic`
     - Fedora MATE
-        - Kernel: `vmlinuz-5.14.10-300.fc35.x86_64`
-        - Initrd: `initramfs-5.14.10-300.fc35.x86_64.img`
+        - Kernel: `vmlinuz-5.14.10-300.fc35.x86_64` > `vmlinuz`
+        - Kernel (Rescue Mode): `vmlinuz-0-rescue-*` > `vmlinuz-rescue`
+        - Initrd: `initramfs-5.14.10-300.fc35.x86_64.img` > `initramfs.img`
+        - Initrd (Rescue Mode): `initramfs-0-rescue-*` > `initramfs-rescue.img`
 - Editamos el archivo `syslinux.cfg` que acabamos de descargar
 
 ```
@@ -86,15 +90,27 @@ UI menu.c32
 
 LABEL ubuntu
     MENU LABEL Ubuntu Server
-    LINUX /EFI/ubuntu/kernel/vmlinuz-5.4.0-107-generic
+    LINUX /EFI/ubuntu/kernel/vmlinuz
     APPEND root=/dev/sda2 ro quiet splash
-    INITRD /EFI/ubuntu/kernel/initrd.img-5.4.0-107-generic
+    INITRD /EFI/ubuntu/kernel/initrd.img
+
+LABEL ubuntu-generic
+    MENU LABEL Ubuntu Server (Generic)
+    LINUX /EFI/ubuntu/kernel/vmlinuz-generic
+    APPEND root=/dev/sda2 ro quiet splash
+    INITRD /EFI/ubuntu/kernel/initrd.img-generic
 
 LABEL fedora
     MENU LABEL Fedora MATE
-    LINUX /EFI/fedora/kernel/vmlinuz-5.14.10-300.fc35.x86_64
+    LINUX /EFI/fedora/kernel/vmlinuz
     APPEND root=/dev/sda5 ro quiet splash
-    INITRD /EFI/fedora/kernel/initramfs-5.14.10-300.fc35.x86_64.img
+    INITRD /EFI/fedora/kernel/initramfs.img
+
+LABEL fedora-rescue
+    MENU LABEL Fedora MATE (Rescue Mode)
+    LINUX /EFI/fedora/kernel/vmlinuz-rescue
+    APPEND root=/dev/sda5 ro quiet splash
+    INITRD /EFI/fedora/kernel/initramfs-rescue.img
 ```
 
 - Copiamos el directorio `syslinux/` en `/boot/efi/EFI/`
