@@ -204,6 +204,10 @@ menuentry "OpenBSD 7.0" {
 
 ## 3. Instalar *boot0* (desde FreeBSD) para poder seleccionar que SO arranca al iniciar la máquina
 
+``` shell
+boot0cfg -B boot0
+```
+
 ## 4. Si no se ha creado usuario durante la instalación del SO, añadir un usuario a Solaris 10 usando *Solaris Managment Console* (`smc`)
 
 ``` shell
