@@ -64,6 +64,14 @@ USED DEVICES
     - Disco secundario (sdb) [6 GB]
         - Añadir partición */home* (1.5 GB)
 
+### Ambos S.O. compartirán *swap*
+
+Si hemos seguido los pasos, Fedora usará automáticamente el *swap* de Ubuntu.
+
+### Crear dos *menuentry* MUY SIMPLES en cada uno de los dos grubs (`/etc/grub.d/40_custom`) que haga chainload al otro grub y que arranque directamente el otro operativo
+
+
+
 ## Instalar el cargador syslinux-efi y configurarlo para que posibilite elegir que operativo arranca al iniciar la máquina
 
 - Descargamos el siguiente archivo: [x86-64 binary tarball of SYSLINUX 6.03+dfsg-14](https://www.rodsbooks.com/efi-bootloaders/syslinux-6.0.3+dfsg-14.tgz)
@@ -118,4 +126,50 @@ LABEL fedora-rescue
 
 ## Instalar el cargador rEFInd y configurarlo para que permita elegir que operativo arranca al iniciar la máquina, o hacer chainload a otro cargador (y mediante un submenú elegir qué cargador)
 
+- Descargamos el siguiente archivo: [refind-0.13.3.1-1.x86_64.rpm](https://sourceforge.net/projects/refind/files/0.13.3.1/refind-0.13.3.1-1.x86_64.rpm/download)
+- Realizamos la instalación con `rpm -Uvh refind-0.13.3.1-1.x86_64.rpm`
+- Editamos el archivo `/boot/efi/EFI/refind/refind.conf`
 
+```
+enable_mouse
+
+scan_all_linux_kernels false
+
+menuentry "Ubuntu Server" {
+    icon /EFI/refind/icons/os_ubuntu.png
+    loader /EFI/ubuntu/kernel/vmlinuz
+    initrd /EFI/ubuntu/kernel/initrd.img
+    options "root=/dev/sda2 ro quiet splash"
+    submenuentry "Boot Generic Mode" {
+        loader /EFI/ubuntu/kernel/vmlinuz-generic
+        initrd /EFI/ubuntu/kernel/initrd.img-generic
+    }
+}
+
+menuentry "Fedora MATE" {
+    icon /EFI/refind/icons/os_fedora.png
+    loader /EFI/fedora/kernel/vmlinuz
+    initrd /EFI/fedora/kernel/initramfs.img
+    options "root=/dev/sda5 ro quiet splash"
+    submenuentry "Boot Rescue Mode" {
+        loader /EFI/fedora/kernel/vmlinuz-rescue
+        initrd /EFI/fedora/kernel/initramfs-rescue.img
+    }
+}
+
+menuentry "Loaders" {
+    loader /EFI/refind/refind_x64.efi
+    submenuentry "SYSLINUX" {
+        loader /EFI/syslinux/syslinux.efi
+    }
+    submenuentry "GRUB Ubuntu Server" {
+        loader /EFI/ubuntu/grubx64.efi
+    }
+    submenuentry "GRUB Fedora MATE" {
+        loader /EFI/fedora/grubx64.efi
+    }
+}
+```
+
+- Eliminar entrada rEFInd: `Del` o `Supr`
+- Abrir submenú: `F2`
