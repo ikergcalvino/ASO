@@ -70,7 +70,27 @@ Si hemos seguido los pasos, Fedora usará automáticamente el *swap* de Ubuntu.
 
 ### Crear dos *menuentry* MUY SIMPLES en cada uno de los dos grubs (`/etc/grub.d/40_custom`) que haga chainload al otro grub y que arranque directamente el otro operativo
 
+#### Ubuntu Server
 
+```
+menuentry "GRUB Fedora MATE" {
+    set root=(hd0,1)
+    chainloader /EFI/fedora/grubx64.efi
+}
+```
+
+- Actualizamos el GRUB: `grub-mkconfig -o /boot/grub/grub.cfg`
+
+#### Fedora MATE
+
+```
+menuentry "GRUB Ubuntu Server" {
+    set root=(hd0,1)
+    chainloader /EFI/ubuntu/grubx64.efi
+}
+```
+
+- Actualizamos el GRUB2: `grub2-mkconfig -o /boot/grub2/grub.cfg`
 
 ## Instalar el cargador syslinux-efi y configurarlo para que posibilite elegir que operativo arranca al iniciar la máquina
 
